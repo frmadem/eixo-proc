@@ -157,6 +157,24 @@ sub aString{
 	Dumper($_[0]);
 }
 
+sub __leerFormatoColumnas{
+
+	map {
+
+		[
+			split(/\s+/, $_)
+		]
+		
+
+	} grep {
+
+		$_ !~ /^\s*$/
+
+
+	} split(/\n/, $_[0]->__leer(@_[1..$#_]));
+
+}
+
 sub __leerFormatoCV{
 
 	my  $reg = qr/^\s*([^:]+)\s*\:\s*(.+)$/;

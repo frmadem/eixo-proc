@@ -3,6 +3,7 @@ package dsys::Proceso;
 use strict;
 use parent qw(dsys::Info);
 
+use dsys::ProcesoLocks;
 use dsys::ProcesoStatus;
 use dsys::ProcesoDescriptor;
 
@@ -30,6 +31,7 @@ sub tiene{
 
 	pico_memoria_virtual => undef,
 
+	etime => undef,
 }
 
 sub __parsear{
@@ -39,6 +41,8 @@ sub __parsear{
 	$_[0]->__cargarStatus;
 
 	$_[0]->__cargarDescriptores;
+
+	$_[0]->__cargarLocks;
 }
 
 	sub __cargarExe{
@@ -51,6 +55,8 @@ sub __parsear{
 
 		my $status = dsys::ProcesoStatus->new(pid=>$_[0]->{pid})->parsear;
 
+
+		$_[0]->{etime} = (stat("/proc/" . $_[0]->{pid}))[10];
 		$_[0]->agregarInfo($status);
 
 		$_[0]->{ppid} = $status->{ppid};
@@ -100,6 +106,21 @@ sub __parsear{
 			)
 
 		}
+	}
+
+	sub __cargarLocks{
+
+		$_[0]->agregarInfo(
+
+			dsys::ProcesoLocks->new(
+
+				pid=>$_[0]->{pid},
+				
+				proceso=>$_[0]
+
+			)->parsear
+
+		);
 	}
 
 1;
