@@ -3,6 +3,8 @@ package dsys::Info;
 use strict;
 use dsys::InfoGrupo;
 
+use Scalar::Util qw(weaken);
+
 sub EROSION  { 5 }
 
 sub new{
@@ -20,8 +22,24 @@ sub new{
 
 	$args{'__contiene'} = $args{__contiene} || [];
 	$args{'__cargada'} = undef;
+	$args{'__padre'} = undef;
 
 	return bless(\%args, $clase);
+}
+
+sub setPadre{
+	my ($self, $padre) = @_;
+
+	$self->{__padre} = $padre;
+
+	weaken($self->{__padre});
+}
+
+sub raiz{
+	my ($self) = @_;
+
+	return $self unless($self->{__padre});
+	return $self->{__padre}->raiz();
 }
 
 sub actualizar{
@@ -42,6 +60,7 @@ sub actualizar{
 sub agregarInfo{
 	my ($self, $info) = @_;
 
+
 	#
 	# ARREGLAME!!! 
 	#
@@ -50,6 +69,8 @@ sub agregarInfo{
 	if($self == $info){
 		die(ref($self) . '::agregarInfo: no se puede agregar una info a si misma');
 	}
+
+	$info->setPadre($self);
 
 	push @{$_[0]->{__contiene}}, $info;
 
@@ -140,7 +161,7 @@ sub parsear{
 
 	$_[0]->{__cargada} = time;
 
-	$_[0]->__parsear;
+	$_[0]->__parsear(@_[1..$#_]);
 
 	$_[0];
 }
@@ -196,6 +217,23 @@ sub __leerFormatoCV{
 
 	\%datos;
 }
+
+#
+# Valores separados por espacios (ej: /proc/foo/stat)
+# Se le pasa el fichero y las claves de los valores (su posicion) en un array
+#
+sub __leerFormatoESV{
+	my ($self, $fichero, $claves) = @_;
+
+	my $datos = $_[0]->__leer($_[1]);
+
+	my @tramos = split(/\s+/, $datos);
+
+	my %datos = map { $_ => shift(@tramos) } @$claves;
+
+	\%datos;
+}
+
 
 sub __leer{
 	my ($self, $ruta) = @_;
