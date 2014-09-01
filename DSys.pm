@@ -21,17 +21,21 @@ my $sys = __PACKAGE__->new;
 
 $sys->ps;
 
-foreach($sys->buscar(tipo=>'Proceso', usuario=>'mysql')->buscar(tipo=>'ProcesoDescriptor')){
+my $h = $sys->buscar(tipo=>'Proceso', pid=>76)->historia;
 
-	#print $_->{ruta} . "\n";
+print Dumper($h);
 
-}
-
-foreach($sys->buscar(tipo=>'Proceso', usuario=>'mysql')->buscar(tipo=>'ProcesoLocks')){
-
-	print Dumper($_->{bloqueos});
-
-}
+#foreach($sys->buscar(tipo=>'Proceso', usuario=>'mysql')->buscar(tipo=>'ProcesoDescriptor')){
+#
+#	print $_->{ruta} . "\n";
+#
+#}
+#
+#foreach($sys->buscar(tipo=>'Proceso', usuario=>'mysql')->buscar(tipo=>'ProcesoLocks')){
+#
+#	print Dumper($_->{bloqueos});
+#
+#}
 
 
 

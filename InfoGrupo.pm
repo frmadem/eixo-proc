@@ -16,4 +16,12 @@ sub limite{
 	wantarray ?  @cortado : dsys::InfoGrupo->new(__contiene=>\@cortado);
 }
 
+sub AUTOLOAD{
+	my ($self, $valor) = @_;
+
+	my ($metodo) = our $AUTOLOAD =~ /\:\:(\w+)$/;
+
+	$self->{__contiene}->[0]->$metodo($valor);
+}
+
 1;

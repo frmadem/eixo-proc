@@ -1,11 +1,14 @@
 package dsys::Proceso;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(dsys::InfoUnit);
 
+use dsys::ProcesoStat;
 use dsys::ProcesoLocks;
 use dsys::ProcesoStatus;
+use dsys::ProcesoHistoria;
 use dsys::ProcesoDescriptor;
+
 
 sub tiene{
 
@@ -34,6 +37,16 @@ sub tiene{
 	etime => undef,
 }
 
+sub historia{
+	my ($self) = @_;
+
+	dsys::ProcesoHistoria->new(
+
+		pid=>$_[0]->{pid}
+
+	)->parsear($self);
+} 
+
 sub __parsear{
 	
 	$_[0]->{exe} = $_[0]->__cargarExe;
@@ -49,6 +62,17 @@ sub __parsear{
 
 		readlink('/proc/' . $_[0]->{pid} . '/exe');
 
+	}
+
+	sub __cargarStat{
+		
+		my $stat = dsys::ProcesoStat->new(pid=>$_[0]->{pid})->parsear;
+
+		$_[0]->agregarInfo(
+
+			$stat
+
+		);
 	}
 
 	sub __cargarStatus{
@@ -122,5 +146,6 @@ sub __parsear{
 
 		);
 	}
+
 
 1;
