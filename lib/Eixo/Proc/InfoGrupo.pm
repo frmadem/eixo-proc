@@ -1,7 +1,7 @@
-package dsys::InfoGrupo;
+package Eixo::Proc::InfoGrupo;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 sub limite{
 	my ($self, $limite) = @_;
@@ -13,7 +13,7 @@ sub limite{
 
 	my @cortado = @{$self->{__contiene}}[0..$limite - 1];
 
-	wantarray ?  @cortado : dsys::InfoGrupo->new(__contiene=>\@cortado);
+	wantarray ?  @cortado : Eixo::Proc::InfoGrupo->new(__contiene=>\@cortado);
 }
 
 sub AUTOLOAD{
@@ -21,7 +21,7 @@ sub AUTOLOAD{
 
 	my ($metodo) = our $AUTOLOAD =~ /\:\:(\w+)$/;
 
-	$self->{__contiene}->[0]->$metodo($valor);
+	return $self->{__contiene}->[0]->$metodo($valor) if(scalar(@{$self->{__contiene}} > 0));
 }
 
 1;

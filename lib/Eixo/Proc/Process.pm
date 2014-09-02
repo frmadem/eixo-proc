@@ -1,13 +1,13 @@
-package dsys::Proceso;
+package Eixo::Proc::Process;
 
 use strict;
-use parent qw(dsys::InfoUnit);
+use parent qw(Eixo::Proc::InfoUnit);
 
-use dsys::ProcesoStat;
-use dsys::ProcesoLocks;
-use dsys::ProcesoStatus;
-use dsys::ProcesoHistoria;
-use dsys::ProcesoDescriptor;
+use Eixo::Proc::ProcessStat;
+use Eixo::Proc::ProcessLocks;
+use Eixo::Proc::ProcessStatus;
+use Eixo::Proc::ProcessHistory;
+use Eixo::Proc::ProcessDescriptor;
 
 
 sub tiene{
@@ -40,7 +40,7 @@ sub tiene{
 sub historia{
 	my ($self) = @_;
 
-	dsys::ProcesoHistoria->new(
+	Eixo::Proc::ProcessHistory->new(
 
 		pid=>$_[0]->{pid}
 
@@ -66,7 +66,7 @@ sub __parsear{
 
 	sub __cargarStat{
 		
-		my $stat = dsys::ProcesoStat->new(pid=>$_[0]->{pid})->parsear;
+		my $stat = Eixo::Proc::ProcessStat->new(pid=>$_[0]->{pid})->parsear;
 
 		$_[0]->agregarInfo(
 
@@ -77,7 +77,7 @@ sub __parsear{
 
 	sub __cargarStatus{
 
-		my $status = dsys::ProcesoStatus->new(pid=>$_[0]->{pid})->parsear;
+		my $status = Eixo::Proc::ProcessStatus->new(pid=>$_[0]->{pid})->parsear;
 
 
 		$_[0]->{etime} = (stat("/proc/" . $_[0]->{pid}))[10];
@@ -125,7 +125,7 @@ sub __parsear{
 
 			$_[0]->agregarInfo(
 
-				dsys::ProcesoDescriptor->new(descriptor=> $ruta . $_)->parsear
+				Eixo::Proc::ProcessDescriptor->new(descriptor=> $ruta . $_)->parsear
 
 			)
 
@@ -136,7 +136,7 @@ sub __parsear{
 
 		$_[0]->agregarInfo(
 
-			dsys::ProcesoLocks->new(
+			Eixo::Proc::ProcessLocks->new(
 
 				pid=>$_[0]->{pid},
 				

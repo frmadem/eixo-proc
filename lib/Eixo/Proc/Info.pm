@@ -1,7 +1,7 @@
-package dsys::Info;
+package Eixo::Proc::Info;
 
 use strict;
-use dsys::InfoGrupo;
+use Eixo::Proc::InfoGrupo;
 
 use Scalar::Util qw(weaken);
 
@@ -85,7 +85,7 @@ sub buscar{
 
 		push @confrontaciones, sub {
 
-			$_[0]->isa('dsys::' . $tipo)
+			$_[0]->isa('Eixo::Proc::' . $tipo)
 
 		};
 
@@ -117,7 +117,7 @@ sub buscar{
 		return 1;
 	});
 
-	wantarray ? @ret : dsys::InfoGrupo->new(__contiene=>\@ret);
+	wantarray ? @ret : Eixo::Proc::InfoGrupo->new(__contiene=>\@ret);
 
 }
 

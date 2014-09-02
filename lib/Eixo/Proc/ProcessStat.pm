@@ -1,7 +1,7 @@
-package dsys::ProcesoStat;
+package Eixo::Proc::ProcessStat;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 my @CAMPOS = qw(
 

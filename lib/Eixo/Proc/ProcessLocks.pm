@@ -1,7 +1,7 @@
-package dsys::ProcesoLocks;
+package Eixo::Proc::ProcessLocks;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 sub tiene{
 
@@ -21,7 +21,7 @@ sub __parsear{
 
 	my @locks  = grep { $_->[4] eq $_[0]->{pid}} $_[0]->__flocks;
 
-	my @descriptores = $_[0]->{proceso}->buscar(tipo=>'ProcesoDescriptor');
+	my @descriptores = $_[0]->{proceso}->buscar(tipo=>'ProcessDescriptor');
 
 	foreach my $l (@locks){
 

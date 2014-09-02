@@ -1,7 +1,7 @@
-package dsys::ProcesoStatus;
+package Eixo::Proc::ProcessStatus;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 sub tiene{
 

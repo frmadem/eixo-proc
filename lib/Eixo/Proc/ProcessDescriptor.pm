@@ -1,7 +1,7 @@
-package dsys::ProcesoDescriptor;
+package Eixo::Proc::ProcessDescriptor;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 sub tiene{
 

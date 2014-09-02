@@ -1,7 +1,7 @@
-package dsys::ProcesoHistoria;
+package Eixo::Proc::ProcessHistory;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
 sub tiene{
 	pid=>undef,
@@ -28,7 +28,7 @@ sub __parsear{
 
 		$self->__cargarhistoria(
 	
-			$raiz->buscar(tipo=>'Proceso', pid=>$pid)->attr('ppid'),
+			$raiz->buscar(tipo=>'Process', pid=>$pid)->attr('ppid'),
 
 			$raiz
 

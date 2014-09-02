@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
-package dsys::Ps;
+package Eixo::Proc::Ps;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
-use dsys::Proceso;
+use Eixo::Proc::Process;
 
 sub EROSION { 1 } 
 
@@ -31,7 +31,7 @@ sub __parsear{
 
 	$_[0]->agregarInfo(
 	
-		dsys::Proceso->new(pid=>$_)->parsear
+		Eixo::Proc::Process->new(pid=>$_)->parsear
 
 	) foreach(@lista_procesos);
 

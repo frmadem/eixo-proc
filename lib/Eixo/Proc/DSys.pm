@@ -1,9 +1,9 @@
-package dsys::DSys;
+package Eixo::Proc::DSys;
 
 use strict;
-use parent qw(dsys::Info);
+use parent qw(Eixo::Proc::Info);
 
-use dsys::Ps;
+use Eixo::Proc::Ps;
 use Data::Dumper;
 
 sub tiene{
@@ -14,16 +14,18 @@ sub tiene{
 sub ps{
 	$_[0]->{ps} if($_[0]->{ps});
 
-	$_[0]->agregarInfo($_[0]->{ps} = dsys::Ps->new->parsear);
+	$_[0]->agregarInfo($_[0]->{ps} = Eixo::Proc::Ps->new->parsear);
 }
 
-my $sys = __PACKAGE__->new;
-
-$sys->ps;
-
-my $h = $sys->buscar(tipo=>'Proceso', pid=>76)->historia;
-
-print Dumper($h);
+1;
+#
+#my $sys = __PACKAGE__->new;
+#
+#$sys->ps;
+#
+#my $h = $sys->buscar(tipo=>'Proceso', pid=>76)->historia;
+#
+#print Dumper($h);
 
 #foreach($sys->buscar(tipo=>'Proceso', usuario=>'mysql')->buscar(tipo=>'ProcesoDescriptor')){
 #
