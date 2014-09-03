@@ -7,9 +7,9 @@ sub tiene{
 
 	pid=>undef,
 
-	bloqueos=>{},	
+	locks=>{},	
 
-	proceso=>undef,
+	process=>undef,
 
 }
 
@@ -21,7 +21,7 @@ sub __parsear{
 
 	my @locks  = grep { $_->[4] eq $_[0]->{pid}} $_[0]->__flocks;
 
-	my @descriptores = $_[0]->{proceso}->buscar(tipo=>'ProcessDescriptor');
+	my @descriptores = $_[0]->{process}->search(type=>'ProcessDescriptor');
 
 	foreach my $l (@locks){
 
@@ -31,19 +31,19 @@ sub __parsear{
 
 		foreach(@descriptores){
 
-			if($_->{inodo} eq $inodo){
+			if($_->{inode} eq $inodo){
 	
-				$ruta = $_->{ruta};
+				$ruta = $_->{path};
 
 				last;
 			}
 
 		}
 
-		$_[0]->{bloqueos}->{$ruta} = {
+		$_[0]->{locks}->{$ruta} = {
 
-			familia=>$l->[1],
-			tipo=>$l->[2]
+			family=>$l->[1],
+			type=>$l->[2]
 
 		};
 

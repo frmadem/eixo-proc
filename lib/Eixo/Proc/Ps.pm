@@ -14,8 +14,6 @@ sub tiene{
 }
 
 
-
-
 sub __actualizar{
 
 	$_[0]->{__contiene} = [];
@@ -25,9 +23,9 @@ sub __actualizar{
 
 sub __parsear{
 
-	opendir D, '/proc';
+	opendir my $d, '/proc' || die("Error opening /proc: $!");
 
-	my @lista_procesos = grep { $_ =~ /^\d+$/} readdir(D);
+	my @lista_procesos = grep { $_ =~ /^\d+$/} readdir($d);
 
 	$_[0]->agregarInfo(
 	
@@ -35,7 +33,7 @@ sub __parsear{
 
 	) foreach(@lista_procesos);
 
-	closedir D;
+	closedir $d;
 
 }
 

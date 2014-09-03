@@ -4,7 +4,6 @@ use strict;
 use parent qw(Eixo::Proc::Info);
 
 use Eixo::Proc::Ps;
-use Data::Dumper;
 
 sub tiene{
 

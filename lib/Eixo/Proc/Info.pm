@@ -76,12 +76,12 @@ sub agregarInfo{
 
 }
 
-sub buscar{
+sub search{
 	my ($self, %args) = @_;
 
 	my @confrontaciones;
 
-	if(my $tipo = $args{tipo}){
+	if(my $tipo = $args{type}){
 
 		push @confrontaciones, sub {
 
@@ -89,7 +89,7 @@ sub buscar{
 
 		};
 
-		delete $args{tipo};
+		delete $args{type};
 	}	
 
 	foreach my $atributo (keys(%args)){
@@ -130,7 +130,7 @@ sub max{
 
 	} @{$self->{__contiene}};
 
-	wantarray ? @ret : dsys::InfoGrupo->new(__contiene=>\@ret);
+	wantarray ? @ret : Eixo::Proc::InfoGrupo->new(__contiene=>\@ret);
 
 }
 
@@ -143,7 +143,7 @@ sub min{
 
 	} @{$self->{__contiene}};
 
-	wantarray ? @ret : dsys::InfoGrupo->new(__contiene=>\@ret);
+	wantarray ? @ret : Eixo::Proc::InfoGrupo->new(__contiene=>\@ret);
 }
 
 sub mGrep {

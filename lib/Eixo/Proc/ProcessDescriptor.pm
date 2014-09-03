@@ -7,16 +7,16 @@ sub tiene{
 
 	descriptor=>undef,
 
-	ruta=>undef,
+	path=>undef,
 
-	inodo=>undef,
+	inode=>undef,
 }
 
 sub __parsear{
 
-	$_[0]->{ruta} = readlink($_[0]->{descriptor});
+	$_[0]->{path} = readlink($_[0]->{descriptor});
 
-	$_[0]->{inodo} = (stat($_[0]->{ruta}))[1];
+	$_[0]->{inode} = (stat($_[0]->{path}))[1];
 }
 
 1;

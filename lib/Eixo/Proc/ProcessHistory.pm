@@ -4,8 +4,8 @@ use strict;
 use parent qw(Eixo::Proc::Info);
 
 sub tiene{
-	pid=>undef,
-	historia=>[],
+	pid =>undef,
+	history =>[],
 }
 
 sub __parsear{
@@ -22,13 +22,13 @@ sub __parsear{
 	sub __cargarhistoria{
 		my ($self, $pid, $raiz) = @_;
 
-		push @{$self->{historia}}, $pid;
+		push @{$self->{history}}, $pid;
 
 		return if($pid == 1 || !$pid);
 
 		$self->__cargarhistoria(
 	
-			$raiz->buscar(tipo=>'Process', pid=>$pid)->attr('ppid'),
+			$raiz->search(type=>'Process', pid=>$pid)->attr('ppid'),
 
 			$raiz
 
